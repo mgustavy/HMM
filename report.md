@@ -12,22 +12,16 @@ Human Activity Recognition (HAR) has become important for health monitoring, fit
 
 We used the Sensor Logger app (v1.54) on an iPhone 13 running iOS 18.6.2. Both accelerometer and gyroscope data were recorded at 100 Hz (10ms intervals). Each recording lasted about 5-10 seconds. Data was collected by one participant performing each activity in a controlled setting.
 
-| Parameter | Value |
-|-----------|-------|
-| Device | iPhone 13 |
-| App | Sensor Logger v1.54 |
-| Sampling Rate | 100 Hz |
-| Sensors | Accelerometer (x,y,z) + Gyroscope (x,y,z) |
 
 #### 2.2 Dataset
 
 | Activity | Recordings | Approx. Data Points |
 |----------|-----------|---------------------|
-| Standing | 8 | ~6,200 |
-| Walking | 10 | ~8,600 |
-| Jumping | 10 | ~10,600 |
-| Still | 10 | ~8,000 |
-| **Total** | **38** | **~33,400** |
+| Standing | 10 | ~7,800 |
+| Walking | 12 | ~10,300 |
+| Jumping | 12 | ~12,700 |
+| Still | 12 | ~9,600 |
+| **Total** | **46** | **~40,400** |
 
 For standing, the phone was held at waist level. Walking was at a normal pace. Jumping was continuous vertical jumps. For still, the phone was placed flat on a table.
 
@@ -92,8 +86,8 @@ We implemented the Viterbi algorithm from scratch to decode activity sequences. 
 
 | Activity | Samples | Sensitivity | Specificity | Accuracy |
 |----------|---------|-------------|-------------|----------|
-| Standing | 2 | 1.0000 | 1.0000 | 1.0000 |
-| Walking | 2 | 1.0000 | 1.0000 | 1.0000 |
+| Standing | 3 | 1.0000 | 1.0000 | 1.0000 |
+| Walking | 3 | 1.0000 | 1.0000 | 1.0000 |
 | Jumping | 3 | 1.0000 | 1.0000 | 1.0000 |
 | Still | 3 | 1.0000 | 1.0000 | 1.0000 |
 
@@ -124,9 +118,8 @@ The notebook includes:
 **Sensor noise and sampling rate:** 100 Hz is more than sufficient -- human movement is mostly below 20 Hz, so we capture everything with room to spare. Some noise is visible in still/standing recordings but computing statistics over the recording window smooths this out. Both accelerometer and gyroscope were useful; the gyroscope captures rotational patterns during walking that the accelerometer alone might miss.
 
 **What we'd improve with more time:**
-- Collect more recordings, especially standing (only 8 vs 10 for others)
 - Use sliding windows to get more training samples from each recording
+- Collect data from more participants to test cross-person generalization
 - Try adding magnetometer data for orientation
 - Run PCA or feature selection to reduce the 108 features
-- Test with data from other people to assess generalization
 - The 100% accuracy is somewhat expected given the small test set -- a larger evaluation would give more confidence
