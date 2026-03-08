@@ -7,10 +7,10 @@ This project implements a complete pipeline for recognizing human activities (St
 ```
 HMM/
 ├── Data/                              # Sensor recordings organized by activity
-│   ├── Standing/                      # 8 standing recordings
-│   ├── Walking/                       # 10 walking recordings
-│   ├── Jumping/                       # 10 jumping recordings
-│   └── Still/                         # 10 still recordings
+│   ├── Standing/                      # 10 standing recordings
+│   ├── Walking/                       # 12 walking recordings
+│   ├── Jumping/                       # 12 jumping recordings
+│   └── Still/                         # 12 still recordings
 ├── hmm_activity_recognition.ipynb     # Main Jupyter notebook
 ├── requirements.txt                   # Python dependencies
 └── README.md                          # This file

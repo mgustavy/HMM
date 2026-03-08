@@ -25,6 +25,8 @@ We used the Sensor Logger app (v1.54) on an iPhone 13 running iOS 18.6.2. Both a
 
 For standing, the phone was held at waist level. Walking was at a normal pace. Jumping was continuous vertical jumps. For still, the phone was placed flat on a table.
 
+![Raw accelerometer signals showing distinct patterns for each activity](raw_accelerometer_signals.png)
+
 #### 2.3 Preprocessing
 
 The app exports each recording as a folder with separate CSVs per sensor. We loaded `Accelerometer.csv` and `Gyroscope.csv` from each folder and merged them on nearest timestamp (since the sensors aren't perfectly synchronized).
@@ -49,6 +51,8 @@ From each merged recording, we extracted **108 features** (72 time-domain + 36 f
 
 **Normalization:** We applied Z-score standardization (zero mean, unit variance) using `StandardScaler` so that features measured in different units (m/s² for acceleration vs rad/s for angular velocity) get equal weight in the model. Without this, features with larger raw values would dominate the HMM's Gaussian emission distributions.
 
+![Key feature distributions showing clear separation between activities](feature_distributions.png)
+
 ### 3. HMM Setup and Implementation
 
 #### 3.1 Model Design
@@ -69,9 +73,13 @@ We used `hmmlearn`'s GaussianHMM which runs Baum-Welch (EM) internally. The conv
 
 All four activity models converged successfully within the iteration limit.
 
+![Learned emission probability distributions for key features across activities](emission_distributions.png)
+
 #### 3.3 Viterbi Decoding
 
 We implemented the Viterbi algorithm from scratch to decode activity sequences. We defined a 4×4 transition matrix with high self-transition probabilities (0.70) reflecting the fact that people tend to continue their current activity. The emission parameters (mean and variance per state) were computed from the training data's feature vectors.
+
+![Activity transition probability matrix](transition_matrix_heatmap.png)
 
 ### 4. Results
 
@@ -97,17 +105,9 @@ The 100% accuracy is helped by the fact that our dataset is small and the four a
 
 The manual Viterbi tested on a sequence of: still → standing → walking → jumping → standing → still. It decoded all 6 steps correctly.
 
-#### 4.4 Visualizations
+![Confusion matrices for training and test sets](confusion_matrices.png)
 
-The notebook includes:
-- Raw accelerometer and gyroscope signal plots
-- Signal magnitude box plots across activities
-- Feature distribution histograms
-- Learned transition matrix heatmaps for each activity model
-- **Emission probability distributions** (Gaussian PDFs per sub-state per activity)
-- Training and test confusion matrices
-- Decoded activity sequence plot (Viterbi true vs predicted)
-- Per-activity evaluation metrics bar chart
+![Viterbi decoded activity sequence vs ground truth](decoded_sequence.png)
 
 ### 5. Discussion and Conclusion
 
