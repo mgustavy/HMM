@@ -13,7 +13,6 @@ HMM/
 │   └── Still/                         # 10 still recordings
 ├── hmm_activity_recognition.ipynb     # Main Jupyter notebook
 ├── hmm_activity_recognition.py        # Python script version
-├── report.md                          # Project report (4-5 pages)
 ├── requirements.txt                   # Python dependencies
 └── README.md                          # This file
 ```
