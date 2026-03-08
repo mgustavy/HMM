@@ -12,7 +12,6 @@ HMM/
 │   ├── Jumping/                       # 10 jumping recordings
 │   └── Still/                         # 10 still recordings
 ├── hmm_activity_recognition.ipynb     # Main Jupyter notebook
-├── hmm_activity_recognition.py        # Python script version
 ├── requirements.txt                   # Python dependencies
 └── README.md                          # This file
 ```
